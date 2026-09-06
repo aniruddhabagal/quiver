@@ -38,8 +38,8 @@ Ports: frontend dev 5182, backend 8010, mongo 27017 (compose).
 ## Progress
 
 - [x] Phase 1: landing page (frontend/src/routes/landing, hero canvas, motion, OG image)
-- [ ] Phase 2: app shell + demo mode
-- [ ] Phase 3: backend foundation (auth, servers, upstream client)
+- [x] Phase 2: app shell + demo mode (frontend/src/routes/app, lib/demo-*.ts, features/*)
+- [~] Phase 3: backend foundation (auth, servers, upstream client)
 - [ ] Phase 4: loadouts (curation, versions, overload score)
 - [ ] Phase 5: virtual MCP endpoint + policy engine
 - [ ] Phase 6: approvals + real-time (WebSocket, Slack)
