@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ ping: 1 }).ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      QUIVER_MONGO_URL: mongodb://mongo:27017
+      QUIVER_MONGO_DB: quiver
+      QUIVER_SECRET_KEY: ${QUIVER_SECRET_KEY:-change-me-in-production}
+      QUIVER_ENCRYPTION_KEY: ${QUIVER_ENCRYPTION_KEY:-}
+      QUIVER_ALLOWED_ORIGINS: ${QUIVER_ALLOWED_ORIGINS:-http://localhost:5182}
+      QUIVER_FRONTEND_URL: ${QUIVER_FRONTEND_URL:-http://localhost:5182}
+      QUIVER_PUBLIC_API_URL: ${QUIVER_PUBLIC_API_URL:-http://localhost:8010}
+    ports:
+      - "8010:8010"
+    volumes:
+      - ./backend/app:/app/app
+    command: ["uv", "run", "--no-dev", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8010", "--reload"]
+
+volumes:
+  mongo-data:

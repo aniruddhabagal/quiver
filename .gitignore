@@ -20,3 +20,12 @@ __pycache__/
 
 # typescript incremental state
 *.tsbuildinfo
+
+# python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+.env.test
