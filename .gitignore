@@ -29,3 +29,6 @@ __pycache__/
 .ruff_cache/
 .env
 .env.test
+
+# local overrides
+*.local
