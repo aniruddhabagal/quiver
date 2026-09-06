@@ -27,6 +27,25 @@ Ports: frontend dev 5182, backend 8010, mongo 27017 (compose).
 - Never mount Lenis under `/app`; it breaks canvas zoom.
 - Invoke the `frontend-design` skill before major UI work.
 
+## Backend layout
+
+`backend/app/{routers,schemas,services,dependencies,utils}`, one file per domain.
+`config.py` holds a single pydantic `Settings` (env prefix `QUIVER_`). The Mongo
+database and the upstream client live on `app.state` so tests swap in
+`mongomock-motor` and `tests/fakes/upstream.py`. Upstream MCP servers are reached
+through the official `mcp` SDK client (`utils/upstream.py`), one session per
+call, Streamable HTTP first with an SSE fallback. Secrets are Fernet-encrypted
+(`utils/crypto.py`) and never returned by the API.
+
+Run: `uv sync`, `uv run uvicorn app.main:app --port 8010 --reload`, `uv run pytest`, `uv run ruff check .`.
+
+## API so far
+
+- `POST /api/v1/auth/signup|login|refresh`, `GET /api/v1/auth/me`
+- `GET|POST /api/v1/keys`, `DELETE /api/v1/keys/{id}` (keys are `qv_…`, stored hashed, scope account or loadout)
+- `GET|POST /api/v1/servers`, `GET|PATCH|DELETE /api/v1/servers/{id}`, `POST …/refresh-manifest`, `POST …/probe`, `GET …/tools`
+- `GET /health`
+
 ## Contracts
 
 - WebSocket events: `call.started`, `call.decision`, `call.finished`,
