@@ -1,0 +1,21 @@
+.hero-canvas .cartridge-halo {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-ui);
+}
+.hero-canvas.is-active .cartridge-halo {
+  opacity: 0.75;
+  animation: breathe 4s ease-in-out infinite;
+}
+.hero-canvas .park-ring {
+  animation: countdown 4s linear forwards;
+}
+.hero-canvas .pulse-flash {
+  animation: flash-out 0.32s var(--ease-ui) forwards;
+}
+.hero-canvas .svg-stamp {
+  animation: svg-stamp-in 1.4s var(--ease-ui) forwards;
+}
+/* until the intro draws them, wires are hidden when JS motion is on */
+html.js-motion .hero-canvas .wire {
+  stroke-dashoffset: 1;
+}
