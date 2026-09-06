@@ -49,3 +49,10 @@ async def test_unreachable_server_is_recorded_not_raised(client, auth, upstream)
     upstream.fail_with = None
     probed = await client.post(f"/api/v1/servers/{body['id']}/probe", headers=auth["headers"])
     assert probed.json()["status"] == "healthy"
+
+
+async def test_timestamps_are_utc_with_zone(client, auth):
+    r = await client.post("/api/v1/servers", json={"name": "tz", "url": "https://mcp.example.com/mcp"}, headers=auth["headers"])
+    body = r.json()
+    assert body["created_at"].endswith("Z")
+    assert body["last_probe"]["at"].endswith("Z")

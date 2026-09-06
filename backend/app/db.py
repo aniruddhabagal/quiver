@@ -11,7 +11,7 @@ Database = AsyncIOMotorDatabase[dict[str, Any]]
 
 
 def make_client() -> AsyncIOMotorClient[dict[str, Any]]:
-    return AsyncIOMotorClient(settings.mongo_url, uuidRepresentation="standard")
+    return AsyncIOMotorClient(settings.mongo_url, uuidRepresentation="standard", tz_aware=True)
 
 
 def get_db(request: Request) -> Database:
