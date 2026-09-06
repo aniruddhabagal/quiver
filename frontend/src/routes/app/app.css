@@ -1,0 +1,27 @@
+@keyframes pop-badge {
+  from {
+    transform: scale(1.4);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.app {
+  background:
+    radial-gradient(ellipse 60% 40% at 80% -10%, rgba(124, 108, 255, 0.1), transparent 70%),
+    var(--color-void);
+}
+.stat-tile {
+  position: relative;
+  overflow: hidden;
+}
+.stat-tile::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -60% auto;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 108, 255, 0.12), transparent 70%);
+  pointer-events: none;
+}
