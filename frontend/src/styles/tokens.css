@@ -1,0 +1,76 @@
+@import 'tailwindcss';
+
+/* ---- Self-hosted type: display, body, data ---- */
+@font-face {
+  font-family: 'Chakra Petch';
+  src: url('/fonts/chakrapetch-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Chakra Petch';
+  src: url('/fonts/chakrapetch-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Sans';
+  src: url('/fonts/plexsans-var.woff2') format('woff2-variations');
+  font-weight: 400 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Mono';
+  src: url('/fonts/plexmono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Mono';
+  src: url('/fonts/plexmono-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@theme {
+  /* ground: near-black with a violet cast, never neutral */
+  --color-void: #07060f;
+  --color-abyss: #0b0a18;
+  --color-slate: #12102a;
+  --color-panel: #171532;
+  --color-raised: #1e1b3f;
+
+  /* glass and hairlines */
+  --color-glass: rgba(140, 130, 255, 0.05);
+  --color-glass-strong: rgba(140, 130, 255, 0.09);
+  --color-hairline: rgba(150, 140, 255, 0.12);
+  --color-hairline-strong: rgba(150, 140, 255, 0.28);
+
+  /* neon: arc is the brand and the wires, ion is the endpoint and anything live */
+  --color-arc: #7c6cff;
+  --color-arc-bright: #a79bff;
+  --color-ion: #2ee6d6;
+  --color-ion-bright: #7ff5ea;
+
+  /* outcomes */
+  --color-allowed: #46f2a0;
+  --color-held: #ffb547;
+  --color-denied: #ff4d7d;
+  --color-warn: #ffd84d;
+
+  /* text tiers */
+  --color-fg-1: #edebff;
+  --color-fg-2: #a9a4d1;
+  --color-fg-3: #6b668f;
+  --color-fg-4: #443f66;
+
+  --font-display: 'Chakra Petch', 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+  --font-sans: 'Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius-1: 4px;
+  --radius-2: 8px;
+  --radius-3: 14px;
+
+  --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
