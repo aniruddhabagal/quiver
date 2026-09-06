@@ -58,7 +58,7 @@ Run: `uv sync`, `uv run uvicorn app.main:app --port 8010 --reload`, `uv run pyte
 
 - [x] Phase 1: landing page (frontend/src/routes/landing, hero canvas, motion, OG image)
 - [x] Phase 2: app shell + demo mode (frontend/src/routes/app, lib/demo-*.ts, features/*)
-- [~] Phase 3: backend foundation (auth, servers, upstream client)
+- [x] Phase 3: backend foundation (auth, API keys, servers, MCP SDK upstream client, probes; frontend wired with demo fallback)
 - [ ] Phase 4: loadouts (curation, versions, overload score)
 - [ ] Phase 5: virtual MCP endpoint + policy engine
 - [ ] Phase 6: approvals + real-time (WebSocket, Slack)
