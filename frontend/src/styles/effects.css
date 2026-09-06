@@ -1,0 +1,233 @@
+/* Glow is rationed. Only these things glow: the cartridge, a live pulse and
+   the wire behind it, an outcome stamp as it lands, the primary CTA, focus. */
+
+.glass {
+  background: var(--color-glass);
+  border: 1px solid var(--color-hairline);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-hairline);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-2);
+}
+
+.glow-cta {
+  box-shadow:
+    0 0 0 1px rgba(124, 108, 255, 0.4),
+    0 0 24px -6px rgba(124, 108, 255, 0.5);
+}
+.glow-cta:hover {
+  box-shadow:
+    0 0 0 1px rgba(167, 155, 255, 0.6),
+    0 0 32px -6px rgba(124, 108, 255, 0.7);
+}
+
+.glow-ion {
+  box-shadow:
+    0 0 0 1px rgba(46, 230, 214, 0.35),
+    0 0 28px -8px rgba(46, 230, 214, 0.55);
+}
+
+/* the brand shape: two opposite corners cut */
+.chamfer {
+  clip-path: polygon(
+    12px 0,
+    100% 0,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%,
+    0 12px
+  );
+}
+.chamfer-sm {
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+/* outcome stamps */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.35em 0.6em 0.3em;
+  border: 1px solid currentColor;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+.stamp--allowed {
+  color: var(--color-allowed);
+  background: rgba(70, 242, 160, 0.1);
+}
+.stamp--held {
+  color: var(--color-held);
+  background: rgba(255, 181, 71, 0.12);
+}
+.stamp--denied {
+  color: var(--color-denied);
+  background: rgba(255, 77, 125, 0.12);
+}
+.stamp--live {
+  animation: stamp-in 0.5s var(--ease-ui) both;
+}
+
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes flash-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 62.8;
+  }
+}
+
+@keyframes svg-stamp-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes feed-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-1);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 120ms var(--ease-ui),
+    color 120ms var(--ease-ui),
+    border-color 120ms var(--ease-ui),
+    box-shadow 200ms var(--ease-ui),
+    transform 120ms var(--ease-ui);
+  white-space: nowrap;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--color-arc);
+  color: #0a0820;
+}
+.btn-primary:hover {
+  background: var(--color-arc-bright);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--color-fg-1);
+  border-color: var(--color-hairline-strong);
+}
+.btn-ghost:hover {
+  background: var(--color-glass-strong);
+}
+.btn-sm {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.875rem;
+}
+
+/* text links */
+.link {
+  color: var(--color-fg-2);
+  text-decoration: none;
+  transition: color 120ms var(--ease-ui);
+}
+.link:hover {
+  color: var(--color-fg-1);
+}
+
+/* hairline rule between sections */
+.rule-top {
+  border-top: 1px solid var(--color-hairline);
+}
+
+/* code-ish blocks */
+.codeblock {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  background: var(--color-abyss);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-2);
+  overflow-x: auto;
+}
