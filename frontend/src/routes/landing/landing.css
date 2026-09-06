@@ -1,0 +1,20 @@
+.hero-nebula {
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 40%, rgba(124, 108, 255, 0.28), transparent 70%),
+    radial-gradient(ellipse 30% 40% at 68% 55%, rgba(46, 230, 214, 0.14), transparent 70%);
+  filter: blur(20px);
+}
+
+/* faint grid on the ground, only in the hero */
+#top::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(150, 140, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 140, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 100%);
+  pointer-events: none;
+}
