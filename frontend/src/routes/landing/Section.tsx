@@ -21,7 +21,7 @@ export function Section({ id, title, lede, tone = 'void', rule = false, children
       id={id}
       className={cn(
         'relative py-20 md:py-28',
-        tone === 'abyss' ? 'bg-abyss' : 'bg-void',
+        tone === 'abyss' ? 'tone-abyss' : 'tone-void',
         rule && 'rule-top',
         className,
       )}

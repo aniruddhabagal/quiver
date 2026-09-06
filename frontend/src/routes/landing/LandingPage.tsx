@@ -9,7 +9,10 @@ import { Overload } from './sections/Overload'
 import { Cta } from './sections/Cta'
 import { Footer } from './sections/Footer'
 import { useLandingMotion } from './useLandingMotion'
+import { Backdrop } from './ambient/Backdrop'
+import { Ambient } from './ambient/Ambient'
 import './landing.css'
+import './ambient/ambient.css'
 
 export function LandingPage() {
   const root = useRef<HTMLDivElement>(null)
@@ -19,6 +22,8 @@ export function LandingPage() {
 
   return (
     <div ref={root} className="landing">
+      <Backdrop />
+      <Ambient />
       <Nav />
       <main>
         <Hero active={active} />

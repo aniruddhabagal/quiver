@@ -1,0 +1,134 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.landing {
+  position: relative;
+}
+.landing > main,
+.landing > footer,
+.landing > nav {
+  position: relative;
+  z-index: 1;
+}
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* aurora: two blurred fields drifting behind the middle sections */
+.aurora {
+  position: absolute;
+  width: 70vw;
+  max-width: 900px;
+  aspect-ratio: 1.4;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.32;
+  will-change: transform;
+}
+.aurora--a {
+  top: 1750px;
+  left: -18vw;
+  background: radial-gradient(ellipse at 40% 50%, rgba(124, 108, 255, 0.55), rgba(124, 108, 255, 0) 70%);
+  animation: aurora-a 42s ease-in-out infinite alternate;
+}
+.aurora--b {
+  top: 4300px;
+  right: -22vw;
+  background: radial-gradient(ellipse at 60% 50%, rgba(46, 230, 214, 0.42), rgba(46, 230, 214, 0) 70%);
+  animation: aurora-b 51s ease-in-out infinite alternate;
+}
+@keyframes aurora-a {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(18vw, 140px) scale(1.18);
+  }
+}
+@keyframes aurora-b {
+  from {
+    transform: translate(0, 0) scale(1.1);
+  }
+  to {
+    transform: translate(-16vw, -160px) scale(0.92);
+  }
+}
+
+/* rails: the wires idea carried down the page margins */
+.rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0,
+    rgba(150, 140, 255, 0.1) 8%,
+    rgba(150, 140, 255, 0.1) 92%,
+    transparent 100%
+  );
+  display: none;
+}
+.rail--l {
+  left: clamp(10px, 2.2vw, 36px);
+}
+.rail--r {
+  right: clamp(10px, 2.2vw, 36px);
+}
+@media (min-width: 1024px) {
+  .rail {
+    display: block;
+  }
+}
+.packet {
+  position: absolute;
+  left: -1px;
+  width: 3px;
+  height: 72px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, transparent, var(--color-arc-bright) 60%, transparent);
+  filter: drop-shadow(0 0 6px rgba(124, 108, 255, 0.7));
+  animation-name: rail-packet;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  top: -80px;
+}
+.packet--ion {
+  background: linear-gradient(180deg, transparent, var(--color-ion-bright) 60%, transparent);
+  filter: drop-shadow(0 0 6px rgba(46, 230, 214, 0.7));
+}
+@keyframes rail-packet {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(100vh * 6));
+  }
+}
+
+/* sections let the backdrop through */
+.tone-void {
+  background: rgba(7, 6, 15, 0.78);
+}
+.tone-abyss {
+  background: rgba(11, 10, 24, 0.84);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .packet {
+    animation: none;
+  }
+  .packet {
+    display: none;
+  }
+}
