@@ -1,0 +1,16 @@
+export const QK = {
+  me: ['me'] as const,
+  servers: ['servers'] as const,
+  server: (id: string) => ['servers', id] as const,
+  serverTools: (id: string) => ['servers', id, 'tools'] as const,
+  loadouts: ['loadouts'] as const,
+  loadout: (id: string) => ['loadouts', id] as const,
+  versions: (id: string) => ['loadouts', id, 'versions'] as const,
+  diff: (id: string, from: number, to: number) => ['loadouts', id, 'diff', from, to] as const,
+  approvals: (status?: string) => ['approvals', status ?? 'all'] as const,
+  approval: (id: string) => ['approvals', 'one', id] as const,
+  calls: (filters: Record<string, unknown>) => ['calls', filters] as const,
+  call: (id: string) => ['calls', 'one', id] as const,
+  keys: ['keys'] as const,
+  analytics: (what: string, params?: Record<string, unknown>) => ['analytics', what, params ?? {}] as const,
+}
