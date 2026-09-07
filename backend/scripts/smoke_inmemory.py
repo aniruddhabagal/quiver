@@ -1,6 +1,6 @@
 """Boot the real app on an in-memory Mongo for a local smoke run. Not for production.
 
-    uv run python scripts/smoke_inmemory.py
+uv run python scripts/smoke_inmemory.py
 """
 
 from contextlib import asynccontextmanager
