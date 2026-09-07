@@ -36,6 +36,29 @@ npm run dev
 
 MIT
 
+## Connecting an agent
+
+Publish a loadout, create a key scoped to it, and give the agent one URL:
+
+```json
+{
+  "mcpServers": {
+    "ops-agent": {
+      "type": "http",
+      "url": "https://your-quiver.example.com/mcp/ops-agent",
+      "headers": { "Authorization": "Bearer qv_…", "X-Agent-Name": "release-bot" }
+    }
+  }
+}
+```
+
+The endpoint speaks MCP over Streamable HTTP (protocol versions 2025-11-25,
+2025-06-18 and 2025-03-26). `tools/list` returns only the curated tools with
+their aliases and rewritten descriptions; preset and hidden arguments are gone
+from the schemas. Denied, rate-limited and unapproved calls come back as tool
+results with `isError: true` and a plain explanation, so the agent can adapt
+instead of crashing.
+
 ## Running it
 
 Frontend only, in demo mode (sample data, simulated traffic):

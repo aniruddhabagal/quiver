@@ -72,7 +72,7 @@ arguments sent upstream, only what is stored, shown, or returned.
 - [x] Phase 2: app shell + demo mode (frontend/src/routes/app, lib/demo-*.ts, features/*)
 - [x] Phase 3: backend foundation (auth, API keys, servers, MCP SDK upstream client, probes; frontend wired with demo fallback)
 - [x] Phase 4: loadouts (curation, versions, overload score; editor verified against the API)
-- [~] Phase 5: virtual MCP endpoint + policy engine
+- [x] Phase 5: virtual MCP endpoint + policy engine (verified with the official MCP SDK as client)
 - [ ] Phase 6: approvals + real-time (WebSocket, Slack)
 - [ ] Phase 7: playground, analytics, export
 - [ ] Phase 8: polish, docs, deployment

@@ -4,6 +4,7 @@ import { Button } from '../../../components/ui/Button'
 import { Badge } from '../../../components/ui/Bits'
 import { Modal } from '../../../components/ui/Modal'
 import { EndpointBlock } from '../../../components/brand/EndpointBlock'
+import { EndpointPanel } from './EndpointPanel'
 import { useCanvasStore } from '../../../stores/canvas-store'
 import { usePublish, useRollback, useSaveTools, useVersions, useDiff } from '../../../lib/hooks'
 import { relTime } from '../../../lib/format'
@@ -43,6 +44,7 @@ export function PublishPanel({ loadout, endpointUrl, onPublishing }: { loadout: 
           <Undo2 size={14} /> Discard
         </Button>
       )}
+      <EndpointPanel loadout={loadout} endpointUrl={endpointUrl} />
       <Button variant="ghost" size="sm" onClick={() => setHistory(true)}>
         <History size={14} /> Versions
       </Button>
