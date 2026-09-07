@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
 from .db import ensure_indexes, make_client
-from .routers import api_keys, auth, servers
+from .routers import api_keys, auth, loadouts, servers
 from .services.health_probe import probe_loop
 from .utils.upstream import UpstreamClient
 
@@ -54,6 +54,7 @@ def create_app() -> FastAPI:
     app.include_router(auth.router, prefix=API_PREFIX)
     app.include_router(api_keys.router, prefix=API_PREFIX)
     app.include_router(servers.router, prefix=API_PREFIX)
+    app.include_router(loadouts.router, prefix=API_PREFIX)
 
     @app.get("/health", tags=["meta"])
     async def health() -> dict:
