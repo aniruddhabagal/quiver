@@ -45,7 +45,18 @@ Run: `uv sync`, `uv run uvicorn app.main:app --port 8010 --reload`, `uv run pyte
 - `GET|POST /api/v1/keys`, `DELETE /api/v1/keys/{id}` (keys are `qv_…`, stored hashed, scope account or loadout)
 - `GET|POST /api/v1/servers`, `GET|PATCH|DELETE /api/v1/servers/{id}`, `POST …/refresh-manifest`, `POST …/probe`, `GET …/tools`
 - `GET|POST /api/v1/loadouts`, `GET|PATCH|DELETE /api/v1/loadouts/{id|slug}`, `PUT …/tools` (creates a version), `POST …/publish|unpublish`, `GET …/versions`, `POST …/versions/{v}/rollback`, `GET …/diff?from&to`, `GET …/preview` (tools/list as the agent sees it)
+- `GET /api/v1/calls?loadout_id&status&q&limit`, `GET /api/v1/calls/{id}`, `GET /api/v1/calls/export`
+- `POST /mcp/{slug}` (JSON-RPC: initialize, notifications/*, ping, tools/list, tools/call), `DELETE /mcp/{slug}` ends a session, `GET` → 405. Auth `Authorization: Bearer qv_…`; headers `Mcp-Session-Id`, `MCP-Protocol-Version` (2025-11-25, 2025-06-18, 2025-03-26)
 - `GET /health`
+
+## Call pipeline
+
+`services/pipeline.run_tool_call` is the only path a tool call takes, from the MCP
+endpoint or the playground: resolve alias → log start → rate limit → policy →
+(hold) → strip hidden args, apply presets → upstream → redact result → log
+finish. Denials are tool *results* with `isError: true` and a "Quiver: …" text;
+only protocol problems become JSON-RPC errors. Redaction never touches the
+arguments sent upstream, only what is stored, shown, or returned.
 
 ## Contracts
 
@@ -61,7 +72,7 @@ Run: `uv sync`, `uv run uvicorn app.main:app --port 8010 --reload`, `uv run pyte
 - [x] Phase 2: app shell + demo mode (frontend/src/routes/app, lib/demo-*.ts, features/*)
 - [x] Phase 3: backend foundation (auth, API keys, servers, MCP SDK upstream client, probes; frontend wired with demo fallback)
 - [x] Phase 4: loadouts (curation, versions, overload score; editor verified against the API)
-- [ ] Phase 5: virtual MCP endpoint + policy engine
+- [~] Phase 5: virtual MCP endpoint + policy engine
 - [ ] Phase 6: approvals + real-time (WebSocket, Slack)
 - [ ] Phase 7: playground, analytics, export
 - [ ] Phase 8: polish, docs, deployment
