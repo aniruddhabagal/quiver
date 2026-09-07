@@ -44,6 +44,7 @@ Run: `uv sync`, `uv run uvicorn app.main:app --port 8010 --reload`, `uv run pyte
 - `POST /api/v1/auth/signup|login|refresh`, `GET /api/v1/auth/me`
 - `GET|POST /api/v1/keys`, `DELETE /api/v1/keys/{id}` (keys are `qv_…`, stored hashed, scope account or loadout)
 - `GET|POST /api/v1/servers`, `GET|PATCH|DELETE /api/v1/servers/{id}`, `POST …/refresh-manifest`, `POST …/probe`, `GET …/tools`
+- `GET|POST /api/v1/loadouts`, `GET|PATCH|DELETE /api/v1/loadouts/{id|slug}`, `PUT …/tools` (creates a version), `POST …/publish|unpublish`, `GET …/versions`, `POST …/versions/{v}/rollback`, `GET …/diff?from&to`, `GET …/preview` (tools/list as the agent sees it)
 - `GET /health`
 
 ## Contracts
@@ -59,7 +60,7 @@ Run: `uv sync`, `uv run uvicorn app.main:app --port 8010 --reload`, `uv run pyte
 - [x] Phase 1: landing page (frontend/src/routes/landing, hero canvas, motion, OG image)
 - [x] Phase 2: app shell + demo mode (frontend/src/routes/app, lib/demo-*.ts, features/*)
 - [x] Phase 3: backend foundation (auth, API keys, servers, MCP SDK upstream client, probes; frontend wired with demo fallback)
-- [ ] Phase 4: loadouts (curation, versions, overload score)
+- [~] Phase 4: loadouts (curation, versions, overload score)
 - [ ] Phase 5: virtual MCP endpoint + policy engine
 - [ ] Phase 6: approvals + real-time (WebSocket, Slack)
 - [ ] Phase 7: playground, analytics, export
