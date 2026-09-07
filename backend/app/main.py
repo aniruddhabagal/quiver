@@ -9,8 +9,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
 from .db import ensure_indexes, make_client
-from .routers import api_keys, auth, loadouts, servers
+from .routers import api_keys, auth, calls, loadouts, mcp_endpoint, servers
 from .services.health_probe import probe_loop
+from .services.holds import NoApprovals
+from .services.rate_limit import SlidingWindow
 from .utils.upstream import UpstreamClient
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
@@ -25,6 +27,8 @@ async def lifespan(app: FastAPI):
     app.state.mongo = client
     app.state.db = client[settings.mongo_db]
     app.state.upstream = UpstreamClient()
+    app.state.rate_limiter = SlidingWindow()
+    app.state.holds = NoApprovals()
     try:
         await ensure_indexes(app.state.db)
     except Exception:  # noqa: BLE001
@@ -55,6 +59,8 @@ def create_app() -> FastAPI:
     app.include_router(api_keys.router, prefix=API_PREFIX)
     app.include_router(servers.router, prefix=API_PREFIX)
     app.include_router(loadouts.router, prefix=API_PREFIX)
+    app.include_router(calls.router, prefix=API_PREFIX)
+    app.include_router(mcp_endpoint.router)
 
     @app.get("/health", tags=["meta"])
     async def health() -> dict:
