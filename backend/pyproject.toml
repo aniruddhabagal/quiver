@@ -28,6 +28,7 @@ dev = [
 asyncio_mode = "auto"
 testpaths = ["tests"]
 filterwarnings = ["ignore::DeprecationWarning"]
+log_level = "WARNING"
 
 [tool.ruff]
 line-length = 120

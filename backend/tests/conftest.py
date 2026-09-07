@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import os
 
 import pytest
@@ -8,7 +9,11 @@ from mongomock_motor import AsyncMongoMockClient
 
 from app.db import ensure_indexes
 from app.main import app
+from app.services.holds import NoApprovals
+from app.services.rate_limit import SlidingWindow
 from tests.fakes.upstream import FakeUpstreamClient
+
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 @pytest.fixture
@@ -35,6 +40,8 @@ def upstream() -> FakeUpstreamClient:
 async def client(db, upstream):
     app.state.db = db
     app.state.upstream = upstream
+    app.state.rate_limiter = SlidingWindow()
+    app.state.holds = NoApprovals()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         yield c
 

@@ -6,7 +6,7 @@ from typing import Any
 from fastapi import Depends, Header, HTTPException, status
 
 from ..db import Database, get_db
-from ..utils.ids import iso, now
+from ..utils.ids import as_utc, iso, now
 from ..utils.security import decode_token
 
 Doc = dict[str, Any]
@@ -43,10 +43,10 @@ async def resolve_api_key(db: Database, plaintext: str) -> Doc | None:
     key = await db.api_keys.find_one({"key_hash": hash_key(plaintext), "revoked_at": None})
     if not key:
         return None
-    if key.get("expires_at") and key["expires_at"] < now():
+    if key.get("expires_at") and as_utc(key["expires_at"]) < now():
         return None
     last = key.get("last_used_at")
-    if not last or (now() - last).total_seconds() > 60:
+    if not last or (now() - as_utc(last)).total_seconds() > 60:
         await db.api_keys.update_one({"_id": key["_id"]}, {"$set": {"last_used_at": now()}})
     return key
 

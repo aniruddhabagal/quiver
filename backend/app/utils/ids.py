@@ -11,13 +11,13 @@ def now() -> datetime:
     return datetime.now(UTC)
 
 
+def as_utc(dt: datetime) -> datetime:
+    """Mongo hands back naive datetimes; they are UTC, so say so."""
+    return dt if dt.tzinfo is not None else dt.replace(tzinfo=UTC)
+
+
 def iso(dt: datetime | None) -> str | None:
-    """UTC ISO string with a Z. Mongo returns naive datetimes; they are UTC by contract."""
-    if not dt:
-        return None
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=UTC)
-    return dt.astimezone(UTC).isoformat().replace("+00:00", "Z")
+    return as_utc(dt).isoformat().replace("+00:00", "Z") if dt else None
 
 
 def token(nbytes: int = 32) -> str:
