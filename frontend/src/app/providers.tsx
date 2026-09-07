@@ -38,10 +38,15 @@ export function Providers({ children }: { children: ReactNode }) {
         {children}
         <Toaster
           position="bottom-right"
-          toastOptions={{
-            className: '!bg-raised !text-fg-1 !border !border-hairline-strong !rounded-1 !shadow-xl',
-            descriptionClassName: '!text-fg-3',
-          }}
+          theme="dark"
+          style={
+            {
+              '--normal-bg': 'var(--color-raised)',
+              '--normal-text': 'var(--color-fg-1)',
+              '--normal-border': 'var(--color-hairline-strong)',
+              '--border-radius': 'var(--radius-1)',
+            } as React.CSSProperties
+          }
         />
       </AuthProvider>
     </QueryClientProvider>
